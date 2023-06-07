@@ -1,4 +1,5 @@
-"use client";
+import React, { useState } from "react";
+import { Button } from "./Button";
 import { useAppShell } from "./useAppShell";
 
 type ShellProps = {
@@ -30,38 +31,10 @@ export function Shell({ title, children }: ShellProps) {
               <span style={{ fontSize: "18px", marginRight: "16px" }}>
                 {user} - 점수: {score}
               </span>
-              <button
-                style={{
-                  padding: "0 16px",
-                  height: "40px",
-                  backgroundColor: "#f50076",
-                  color: "white",
-                  borderRadius: "4px",
-                  fontSize: "14px",
-                  outline: "none",
-                  border: "none",
-                }}
-                onClick={() => setUser(null)}
-              >
-                Logout
-              </button>
+              <Button onClick={() => setUser(null)}>Logout</Button>
             </>
           ) : (
-            <button
-              style={{
-                padding: "0 16px",
-                height: "40px",
-                backgroundColor: "#f50076",
-                color: "white",
-                borderRadius: "4px",
-                fontSize: "14px",
-                outline: "none",
-                border: "none",
-              }}
-              onClick={() => setUser("ckstn0777")}
-            >
-              Login
-            </button>
+            <Button onClick={() => setUser("ckstn0777")}>Login</Button>
           )}
         </div>
       </header>
