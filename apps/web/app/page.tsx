@@ -1,10 +1,5 @@
-import { Button, Header } from "ui";
+import { Shell } from "ui";
 
 export default function Page() {
-  return (
-    <>
-      <Header text="Web" />
-      <Button />
-    </>
-  );
+  return <Shell title="game zone">게임 존</Shell>;
 }
