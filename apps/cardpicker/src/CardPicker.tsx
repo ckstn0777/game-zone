@@ -1,7 +1,7 @@
 import { shuffle } from "lodash-es";
 import { useState } from "react";
 import { useAppShell } from "ui";
-import { Button } from "ui/Button";
+import { Button } from "ui";
 
 const CARDS = [-10, -5, 1, 5, 10];
 

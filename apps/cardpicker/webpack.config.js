@@ -1,30 +1,35 @@
-const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
-
+const path = require("path");
 const deps = require("./package.json").dependencies;
 
 module.exports = {
-  mode: "development",
   entry: "./src/index.ts",
-  // output: {
-  //   path: path.join(__dirname, "dist"),
-  //   filename: "[hash].js",
-  //   publicPath: "/",
-  // },
-  output: {
-    publicPath: "auto",
+  mode: "development",
+  devServer: {
+    port: 5500,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".tsx", ".js"],
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(js|jsx|tsx|ts)$/,
+      //   loader: "ts-loader",
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.(js|jsx|tsx|ts)$/,
-        use: "ts-loader",
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
       },
       {
         test: /\.css$/i,
@@ -33,40 +38,32 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
     new ModuleFederationPlugin({
       name: "cardpicker",
       filename: "remoteEntry.js",
       exposes: {
-        "./CardPicker": "./src/CardPicker",
+        // expose each component
+        "./Cardpicker": "./src/CardPicker",
       },
       shared: {
         ...deps,
-        ui: {
-          singleton: true,
-          eager: true,
-        },
+        ui: { singleton: true },
         react: {
           singleton: true,
           requiredVersion: deps.react,
-          eager: true,
         },
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
-          eager: true,
-        },
-        "lodash-es": {
-          singleton: true,
-          eager: true,
         },
       },
     }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
   ],
-  devServer: {
-    host: "localhost", // live-server host 및 port
-    port: 5500,
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
 };

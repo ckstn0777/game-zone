@@ -13,18 +13,31 @@ module.exports = {
   //   filename: "[hash].js",
   //   publicPath: "/",
   // },
+  // output: {
+  //   publicPath: "auto",
+  // },
   output: {
-    publicPath: "auto",
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(js|jsx|tsx|ts)$/,
+      //   use: "ts-loader",
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.(js|jsx|tsx|ts)$/,
-        use: "ts-loader",
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
       },
       {
         test: /\.css$/i,
@@ -46,17 +59,14 @@ module.exports = {
         ...deps,
         ui: {
           singleton: true,
-          eager: true,
         },
         react: {
           singleton: true,
           requiredVersion: deps.react,
-          eager: true,
         },
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
-          eager: true,
         },
       },
     }),

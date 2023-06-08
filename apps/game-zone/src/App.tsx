@@ -1,16 +1,20 @@
 import { Shell } from "ui";
-import React from "react";
+import React, { Suspense } from "react";
 
-//const CardPicker = React.lazy(() => import("cardpicker/CardPicker"));
+const CardPicker = React.lazy(() => import("cardpicker/Cardpicker"));
 const UpDown = React.lazy(() => import("updown/UpDown"));
-// console.log(CardPicker);
 
 function App() {
   return (
     <Shell title="game zone">
-      <h1>Game Zone</h1>
-
-      <div>{/* <CardPicker /> */}</div>
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div style={{ display: "flex", gap: "20px" }}>
+            <CardPicker />
+            <UpDown />
+          </div>
+        </Suspense>
+      </div>
     </Shell>
   );
 }

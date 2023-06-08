@@ -1,4 +1,4 @@
-declare module "cardpicker/CardPicker" {
+declare module "cardpicker/Cardpicker" {
   const CardPicker: React.ComponentType;
 
   export default CardPicker;

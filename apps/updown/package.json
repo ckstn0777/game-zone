@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "dev": "webpack serve",
     "build": "pnpm run clean && webpack --mode production",
     "serve": "serve dist -p 5500",
     "clean": "rm -rf dist"

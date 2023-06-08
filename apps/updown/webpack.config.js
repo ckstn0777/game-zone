@@ -46,21 +46,14 @@ module.exports = {
         ...deps,
         ui: {
           singleton: true,
-          eager: true,
         },
         react: {
           singleton: true,
           requiredVersion: deps.react,
-          eager: true,
         },
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
-          eager: true,
-        },
-        "lodash-es": {
-          singleton: true,
-          eager: true,
         },
       },
     }),
