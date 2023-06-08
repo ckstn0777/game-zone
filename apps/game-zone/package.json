@@ -1,29 +1,25 @@
 {
-  "name": "cardpicker",
+  "name": "updown",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --mode development",
-    "build": "pnpm run clean && webpack --mode production",
-    "serve": "serve dist -p 5500",
-    "clean": "rm -rf dist"
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Chansu Kim",
   "license": "ISC",
   "dependencies": {
-    "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "serve": "^14.2.0",
     "ui": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
     "@babel/preset-react": "^7.22.3",
-    "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "css-loader": "^6.8.1",

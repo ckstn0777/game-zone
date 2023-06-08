@@ -37,10 +37,10 @@ module.exports = {
       template: "./public/index.html",
     }),
     new ModuleFederationPlugin({
-      name: "updown",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./UpDown": "./src/UpDown",
+      name: "gamezone",
+      remotes: {
+        cardpicker: "cardpicker@http://localhost:5500/remoteEntry.js",
+        updown: "updown@http://localhost:5501/remoteEntry.js",
       },
       shared: {
         ...deps,
@@ -58,15 +58,11 @@ module.exports = {
           requiredVersion: deps["react-dom"],
           eager: true,
         },
-        "lodash-es": {
-          singleton: true,
-          eager: true,
-        },
       },
     }),
   ],
   devServer: {
     host: "localhost", // live-server host 및 port
-    port: 5501,
+    port: 5502,
   },
 };

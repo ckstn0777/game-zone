@@ -1,14 +1,20 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ModuleFederationPlugin } = require("webpack").container;
+
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.tsx",
+  entry: "./src/index.ts",
+  // output: {
+  //   path: path.join(__dirname, "dist"),
+  //   filename: "[hash].js",
+  //   publicPath: "/",
+  // },
   output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[hash].js",
-    publicPath: "/",
+    publicPath: "auto",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
@@ -16,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -29,6 +35,34 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new ModuleFederationPlugin({
+      name: "cardpicker",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./CardPicker": "./src/CardPicker",
+      },
+      shared: {
+        ...deps,
+        ui: {
+          singleton: true,
+          eager: true,
+        },
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+          eager: true,
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+          eager: true,
+        },
+        "lodash-es": {
+          singleton: true,
+          eager: true,
+        },
+      },
     }),
   ],
   devServer: {

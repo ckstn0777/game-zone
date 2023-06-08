@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm run clean && webpack --mode production",
+    "serve": "serve dist -p 5500",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "Chansu Kim",
